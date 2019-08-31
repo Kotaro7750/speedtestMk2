@@ -2,8 +2,18 @@ import React from 'react';
 import { Component } from 'react';
 import './App.css';
 import Wifi from './Wifi.js';
+import myWorker from './test.worker.js'
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { counter: 0 };
+  }
+  componentDidMount() {
+    const worker = new myWorker();
+    worker.postMessage(this.state.counter);
+    worker.addEventListener('message', event => this.setState({ counter: event.data }));
+  }
   render(props, state) {
     return (
       <div className="App">
