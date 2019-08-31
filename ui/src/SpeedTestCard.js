@@ -2,36 +2,41 @@ import React from 'react';
 import { Component } from 'react';
 import './SpeedTestCard.css';
 import ReactSpeedometer from "react-d3-speedometer"
+import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
 
 class SpeedTestCard extends Component {
     componentDidMount() {
     }
     render(props) {
         return (
-            <div id="test">
-
-                <Card >
-                    <CardContent>
-                        <ReactSpeedometer value={Number(this.props.state.dl)} maxValue={10} />
-                    </CardContent>
-                    <CardActions>
-                    </CardActions>
-                </Card>
-                <div className="testGroup">
-                    <div className="testArea">
-                        <div className="testName">Download</div>
-                        <div id="dlText" className="meterText">{this.props.state.dl}</div>
-                        <div className="unit">Mbps</div>
-                    </div>
-                    <div className="testArea">
-                        <div className="testName">Upload</div>
-                        <div id="ulText" className="meterText">{this.props.state.ul}</div>
-                        <div className="unit">Mbps</div>
-                    </div>
-                </div>
+            <div>
+                <Grid container id="test">
+                    <Grid item lg={3}>
+                        <Card className="testGroup">
+                            <CardContent>
+                                <Typography variant="h5" component="h2">Download</Typography>
+                            </CardContent>
+                            <CardActions>
+                                <ReactSpeedometer value={Number(this.props.state.dl)} maxValue={10} />
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                    <Grid item lg={3}>
+                        <Card className="testGroup">
+                            <CardContent>
+                                <Typography variant="h5" component="h2">Upload</Typography>
+                            </CardContent>
+                            <CardActions>
+                                <ReactSpeedometer value={Number(this.props.state.ul)} maxValue={5000} />
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                </Grid>
                 <div className="testGroup">
                     <div className="testArea">
                         <div className="testName">Ping</div>
