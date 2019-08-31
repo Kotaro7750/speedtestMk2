@@ -17,6 +17,12 @@ class Wifi extends Component {
         this.worker = null;
     }
 
+    componentDidMount() {
+        setInterval(() => {
+            if (this.worker !== null) this.worker.postMessage('status');
+        }, 200);
+    }
+
     startStop() {
         if (this.worker != null) {
             //speedtest is running, abort
@@ -57,7 +63,7 @@ class Wifi extends Component {
                 //I("jitText").textContent = data[5];
                 this.setState({ jitter: data[5] });
                 //test5 = data[5];
-            };
+            }.bind(this);
         }
     }
 
