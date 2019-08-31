@@ -4,6 +4,10 @@ import './App.css';
 import Wifi from './Wifi.js';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { counter: 0 };
+  }
   render(props, state) {
     return (
       <div className="App">

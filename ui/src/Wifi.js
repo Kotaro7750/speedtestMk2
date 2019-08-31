@@ -1,6 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
 import SpeedTestCard from './SpeedTestCard';
+import wifiWorker from './speedTest.worker.js'
 
 class Wifi extends Component {
     constructor() {
@@ -16,6 +17,12 @@ class Wifi extends Component {
         this.worker = null;
     }
 
+    componentDidMount() {
+        setInterval(() => {
+            if (this.worker !== null) this.worker.postMessage('status');
+        }, 200);
+    }
+
     startStop() {
         if (this.worker != null) {
             //speedtest is running, abort
@@ -28,7 +35,7 @@ class Wifi extends Component {
             //initUI();
         } else {
             //test is not running, begin
-            this.worker = new Worker('./speedtestWorker.js')
+            this.worker = new wifiWorker();
             let wifi = { telemetry_level: "basic", time_dl: 5, time_ul: 5 };
             //w.postMessage('start '+JSON.stringify(wifi)); //Add optional parameters as a JSON object to this command
             this.worker.postMessage('start ' + JSON.stringify(wifi)); //Add optional parameters as a JSON object to this command
@@ -41,17 +48,12 @@ class Wifi extends Component {
                     //I("startStopBtn").className = "";
                     this.worker = null;
                 }
-                //I("ip").textContent = data[4];
-                //test1 = data[4];
-                //I("dlText").textContent = (status == 1 && data[1] == 0) ? "..." : data[1];
-                //test2 = data[1];
-                //I("ulText").textContent = (status == 3 && data[2] == 0) ? "..." : data[2];
-                //test3 = data[2];
-                //I("pingText").textContent = data[3];
-                //test4 = data[3];
-                //I("jitText").textContent = data[5];
-                //test5 = data[5];
-            };
+                this.setState({ ip: data[4] });
+                this.setState({ dl: data[1] });
+                this.setState({ ul: data[2] });
+                this.setState({ ping: data[3] });
+                this.setState({ jitter: data[5] });
+            }.bind(this);
         }
     }
 

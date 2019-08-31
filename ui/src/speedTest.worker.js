@@ -66,9 +66,11 @@ function url_sep(url) { return url.match(/\?/) ? '&' : '?'; }
 	-start: starts the test. optionally, settings can be passed as JSON.
 		example: start {"time_ul":"10", "time_dl":"10", "count_ping":"50"}
 */
-this.addEventListener('message', function (e) {
+self.addEventListener('message', function (e) {
+    this.console.log(e.data);
     var params = e.data.split(' ')
     if (params[0] === 'status') { // return status
+        this.console.log(params);
         postMessage(testStatus + ';' + dlStatus + ';' + ulStatus + ';' + pingStatus + ';' + clientIp + ';' + jitterStatus + ';' + dlProgress + ';' + ulProgress + ';' + pingProgress)
     }
     if (params[0] === 'start' && testStatus === -1) { // start new test
@@ -99,7 +101,7 @@ this.addEventListener('message', function (e) {
                         settings.xhr_dlMultistream = 3
                     }
                 }
-                if (/Chrome.(\d+)/i.test(ua) && (!!window.self.fetch)) {
+                if (/Chrome.(\d+)/i.test(ua) && (!!self.fetch)) {
                     if (typeof s.xhr_dlMultistream === 'undefined') {
                         // chrome more precise with 5 streams
                         settings.xhr_dlMultistream = 5
@@ -124,6 +126,7 @@ this.addEventListener('message', function (e) {
         test_pointer = 0;
         var iRun = false, dRun = false, uRun = false, pRun = false;
         var runNextTest = function () {
+            console.log(testStatus);
             if (testStatus == 5) return;
             if (test_pointer >= settings.test_order.length) { testStatus = 4; sendTelemetry2(); return; }
             switch (settings.test_order.charAt(test_pointer)) {
