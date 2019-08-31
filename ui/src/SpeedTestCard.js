@@ -1,6 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
 import './SpeedTestCard.css';
+import ReactSpeedometer from "react-d3-speedometer"
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 class SpeedTestCard extends Component {
     componentDidMount() {
@@ -8,6 +12,14 @@ class SpeedTestCard extends Component {
     render(props) {
         return (
             <div id="test">
+
+                <Card >
+                    <CardContent>
+                        <ReactSpeedometer value={Number(this.props.state.dl)} maxValue={10} />
+                    </CardContent>
+                    <CardActions>
+                    </CardActions>
+                </Card>
                 <div className="testGroup">
                     <div className="testArea">
                         <div className="testName">Download</div>
