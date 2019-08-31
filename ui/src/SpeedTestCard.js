@@ -4,7 +4,6 @@ import './SpeedTestCard.css';
 
 class SpeedTestCard extends Component {
     componentDidMount() {
-        console.log(this.props.state);
     }
     render(props) {
         return (
