@@ -1,26 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Component } from 'react';
 import './App.css';
+import Wifi from './Wifi.js';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render(props, state) {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <title>東京大学教養学部学生自治会　UTokyo WiFiスピードテスト</title>
+        </header>
+        <Wifi />
+      </div>
+    );
+  }
 }
 
 export default App;
