@@ -1,5 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
+import Fab from '@material-ui/core/Fab';
+import SendIcon from '@material-ui/icons/Send';
+import Button from '@material-ui/core/Button';
 import SpeedTestCard from './SpeedTestCard';
 import wifiWorker from './speedTest.worker.js'
 
@@ -65,8 +68,11 @@ class Wifi extends Component {
             <div>
                 <body>
                     <h1>東京大学教養学部学生自治会 UTokyoWiFiスピードテスト</h1>
-                    <div id="startStopBtn" onClick={() => this.startStop()}></div>
-                    <div id="submit" onClick={() => this.submitData()}></div>
+                    <Fab color="secondary" variant="extended" aria-label="delete" onClick={() => this.startStop()}>start</Fab>
+                    <Button variant="contained" color="primary" onClick={this.submitData()}>
+                        送信
+                        <SendIcon />
+                    </Button>
                     <SpeedTestCard state={this.state} />
                 </body>
             </div>

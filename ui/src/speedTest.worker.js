@@ -67,10 +67,8 @@ function url_sep(url) { return url.match(/\?/) ? '&' : '?'; }
 		example: start {"time_ul":"10", "time_dl":"10", "count_ping":"50"}
 */
 self.addEventListener('message', function (e) {
-    this.console.log(e.data);
     var params = e.data.split(' ')
     if (params[0] === 'status') { // return status
-        this.console.log(params);
         postMessage(testStatus + ';' + dlStatus + ';' + ulStatus + ';' + pingStatus + ';' + clientIp + ';' + jitterStatus + ';' + dlProgress + ';' + ulProgress + ';' + pingProgress)
     }
     if (params[0] === 'start' && testStatus === -1) { // start new test
