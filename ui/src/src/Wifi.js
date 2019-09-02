@@ -4,7 +4,7 @@ import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
 import Button from '@material-ui/core/Button';
 import SpeedTestCard from './SpeedTestCard';
-import wifiWorker from './speedTest.worker.js'
+//import wifiWorker from './speedTest.worker.js'
 
 class Wifi extends Component {
     constructor() {
@@ -38,7 +38,7 @@ class Wifi extends Component {
             //initUI();
         } else {
             //test is not running, begin
-            this.worker = new wifiWorker();
+            this.worker = new Worker("./speedtest.worker.js");
             let wifi = { telemetry_level: "basic", time_dl: 5, time_ul: 5 };
             //w.postMessage('start '+JSON.stringify(wifi)); //Add optional parameters as a JSON object to this command
             this.worker.postMessage('start ' + JSON.stringify(wifi)); //Add optional parameters as a JSON object to this command
