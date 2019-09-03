@@ -5,6 +5,7 @@ dev:
 	npm run start
 
 build:
+	rm -rf build
 	npm run build
 	cp ./telemetry/garbage.php ./build
 	cp ./telemetry/empty.php ./build

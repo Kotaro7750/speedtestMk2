@@ -45,6 +45,7 @@ class Wifi extends Component {
             //I("startStopBtn").className = "running";
             this.worker.onmessage = function (e) {
                 let data = e.data.split(';');
+                console.log(data);
                 let status = Number(data[0]);
                 if (status >= 4) {
                     //test completed
