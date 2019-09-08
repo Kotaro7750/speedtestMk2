@@ -4,6 +4,4 @@ services:
   nginx:
     build: "./ui"
     ports:
-      - "8888:1234"
-  php:
-    build: "./php"
+      - "80:80"
