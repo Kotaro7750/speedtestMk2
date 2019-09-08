@@ -2,8 +2,9 @@
 !.gitignore
 !.env.example
 
-/ui/node_modules/
-/ui/public/
+/ui/src/node_modules/
+/ui/src/public/
+/ui/src/build/
 
 # Created by https://www.gitignore.io/api/macos
 # Edit at https://www.gitignore.io/?templates=macos
