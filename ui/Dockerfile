@@ -1,6 +1,7 @@
 FROM node:12 as builder
 COPY ./src /root/src
 WORKDIR /root/src
+RUN npm install
 RUN npm run build
 
 FROM nginx:1.17.3

@@ -3,7 +3,7 @@
 !.env.example
 
 /ui/src/node_modules/
-/ui/src/public/
+!/ui/src/public/
 /ui/src/build/
 
 # Created by https://www.gitignore.io/api/macos
