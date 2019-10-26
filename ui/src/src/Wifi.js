@@ -45,7 +45,7 @@ class Wifi extends Component {
             //I("startStopBtn").className = "running";
             this.worker.onmessage = function (e) {
                 let data = e.data.split(';');
-                console.log(data);
+                //console.log(data);
                 let status = Number(data[0]);
                 if (status >= 4) {
                     //test completed
@@ -61,7 +61,23 @@ class Wifi extends Component {
         }
     }
 
-    submitData() {
+    submitData(){
+      let url = "https://google.com";
+      let data = JSON.stringify({
+        hoge:"hoge"
+      });
+
+      fetch(url,{
+        method:'POST',
+        headers:{
+          'Content-type':'application/json'
+        },
+        body:data
+      }).then((res) => {
+        console.log("res");
+      }).catch((error) => {
+        console.log("error");
+      });
     }
 
     render() {
@@ -70,7 +86,7 @@ class Wifi extends Component {
                 <body>
                     <h1>東京大学教養学部学生自治会 UTokyoWiFiスピードテスト</h1>
                     <Fab color="secondary" variant="extended" aria-label="delete" onClick={() => this.startStop()}>start</Fab>
-                    <Button variant="contained" color="primary" onClick={this.submitData()}>
+                    <Button variant="contained" color="primary" onClick={() => this.submitData()}>
                         送信
                         <SendIcon />
                     </Button>
