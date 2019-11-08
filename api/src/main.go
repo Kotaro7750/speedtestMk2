@@ -27,7 +27,7 @@ func main() {
 	}
 	defer db.Close()
 
-	placeCtl := controller.PlaceCtl{}
+	placeCtl := controller.PlaceCtl{DB: db}
 
 	http.HandleFunc("/place", placeCtl.GetPlaceList)
 	err = http.ListenAndServe(":"+os.Getenv("PORT"), nil)
