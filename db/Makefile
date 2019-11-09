@@ -9,6 +9,10 @@ run:build
 mysql:
 	mysql -h127.0.0.1 -utest -ptest
 
+debug:build
+	docker run --rm -p 3306:3306 --name $(CONTAINER) $(CONTAINER)
+
+
 .PHONY:clean
 clean:
 	docker stop $(CONTAINER)
