@@ -62,8 +62,10 @@ class Wifi extends Component {
     }
 
     submitData(){
+      console.log(process.env);
       console.log(process.env.REACT_APP_TEST);
-      let url = "http://localhost:1991";
+      let url = process.env.REACT_APP_URL;
+
       let data = JSON.stringify({
         place:1,
         ping:Number(this.state.ping),

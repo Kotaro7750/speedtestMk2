@@ -1,9 +1,11 @@
 FROM node:12 as builder
 ARG TEST
+ARG API_URL
 COPY ./src /root/src
 WORKDIR /root/src
 RUN npm install
 ENV REACT_APP_TEST ${TEST}
+ENV REACT_APP_URL ${API_URL}
 RUN npm run build
 
 FROM php:7.1-apache
