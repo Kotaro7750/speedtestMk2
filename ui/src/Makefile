@@ -2,7 +2,7 @@ install:
 	npm install
 
 dev:
-	REACT_APP_TEST=hoge npm run start
+	REACT_APP_URL=http://localhost:1991 REACT_APP_TEST=hoge npm run start
 
 build:
 	rm -rf build

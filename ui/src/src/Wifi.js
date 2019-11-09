@@ -4,7 +4,6 @@ import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
 import Button from '@material-ui/core/Button';
 import SpeedTestCard from './SpeedTestCard';
-//import wifiWorker from './speedTest.worker.js'
 
 class Wifi extends Component {
     constructor() {
@@ -15,9 +14,25 @@ class Wifi extends Component {
             ping: "",
             jitter: "",
             ip: "",
-            worker: null
+            worker: null,
+            place:[],
+            selected_place:0,
         };
         this.worker = null;
+    }
+
+    componentWillMount() {
+        let url = process.env.REACT_APP_URL;
+        fetch(url+"/place",{
+          method:'GET',
+        }).then((res) => {
+          return res.json();
+        }).then((json) => {
+          this.setState({ place: JSON.parse(json.result) });
+          this.setState({ selected_place: this.state.place[0].id })
+        }).catch((error) => {
+          console.log("error");
+        });
     }
 
     componentDidMount() {
@@ -61,13 +76,19 @@ class Wifi extends Component {
         }
     }
 
+    onSelected(event) {
+      this.setState({
+      selected_place: event.target.value
+      })
+    }
+
     submitData(){
       console.log(process.env);
       console.log(process.env.REACT_APP_TEST);
       let url = process.env.REACT_APP_URL;
 
       let data = JSON.stringify({
-        place:1,
+        place:Number(this.state.selected_place),
         ping:Number(this.state.ping),
         jitter:Number(this.state.jitter),
         upload:Number(this.state.ul),
@@ -93,6 +114,9 @@ class Wifi extends Component {
                 <body>
                     <h1>東京大学教養学部学生自治会 UTokyoWiFiスピードテスト</h1>
                     <Fab color="secondary" variant="extended" aria-label="delete" onClick={() => this.startStop()}>start</Fab>
+                    <select onChange={(event) => this.onSelected(event)}>
+                      { this.state.place.map( d => <option value={d.id}>{d.place}</option>)}
+                    </select>
                     <Button variant="contained" color="primary" onClick={() => this.submitData()}>
                         送信
                         <SendIcon />
