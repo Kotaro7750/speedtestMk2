@@ -6,6 +6,8 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/fatih/color v1.7.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.7 // indirect
+	github.com/gin-contrib/cors v1.3.0
+	github.com/gin-gonic/gin v1.4.0
 	github.com/go-siris/siris v7.4.0+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/joho/godotenv v1.3.0

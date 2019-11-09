@@ -63,12 +63,16 @@ class Wifi extends Component {
 
     submitData(){
       console.log(process.env.REACT_APP_TEST);
-      let url = "https://google.com";
+      let url = "http://localhost:1991";
       let data = JSON.stringify({
-        hoge:"hoge"
+        place:1,
+        ping:Number(this.state.ping),
+        jitter:Number(this.state.jitter),
+        upload:Number(this.state.ul),
+        download:Number(this.state.dl),
       });
 
-      fetch(url,{
+      fetch(url+"/telemetry",{
         method:'POST',
         headers:{
           'Content-type':'application/json'

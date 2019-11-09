@@ -3,6 +3,7 @@ package controller
 import (
 	"database/sql"
 	"encoding/json"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"speedtestMk2/model"
 )
@@ -11,19 +12,26 @@ type PlaceCtl struct {
 	DB *sql.DB
 }
 
-func (p *PlaceCtl) GetPlaceList(w http.ResponseWriter, r *http.Request) {
+func (p *PlaceCtl) GetPlaceList(c *gin.Context) {
 	places, err := model.GetPlaceList(p.DB)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusOK)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err,
+		})
 	}
 
 	res, err := json.Marshal(places)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err,
+		})
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(res)
+	c.JSON(http.StatusOK, gin.H{
+		"result": string(res),
+		"error":  nil,
+	})
+	return
 }

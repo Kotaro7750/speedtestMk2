@@ -3,6 +3,8 @@ package main
 import (
 	"bytes"
 	"database/sql"
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
 	"os"
@@ -80,11 +82,22 @@ func main() {
 	defer db.Close()
 
 	placeCtl := controller.PlaceCtl{DB: db}
+	telemetryCtl := controller.TelemetryCtl{DB: db}
 
-	http.HandleFunc("/place", placeCtl.GetPlaceList)
-	err = http.ListenAndServe(":"+os.Getenv("PORT"), Log(http.DefaultServeMux))
+	router := gin.Default()
 
-	if err != nil {
-		log.Fatal("Cannot listen!")
-	}
+	//CORS
+	//clientURL := os.Getenv("CLIENT_URL")
+
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"*"}
+	config.AllowHeaders = []string{"Content-Type", "Authorization"}
+
+	router.Use(cors.New(config))
+
+	router.GET("/place", placeCtl.GetPlaceList)
+	router.POST("/telemetry", telemetryCtl.Add)
+
+	Port := os.Getenv("PORT")
+	router.Run(":" + Port)
 }
