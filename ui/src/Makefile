@@ -2,7 +2,7 @@ install:
 	npm install
 
 dev:
-	npm run start
+	REACT_APP_TEST=hoge npm run start
 
 build:
 	rm -rf build

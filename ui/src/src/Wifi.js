@@ -62,6 +62,7 @@ class Wifi extends Component {
     }
 
     submitData(){
+      console.log(process.env.REACT_APP_TEST);
       let url = "https://google.com";
       let data = JSON.stringify({
         hoge:"hoge"

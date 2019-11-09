@@ -1,19 +1,28 @@
 version: "3"
 
 services:
+  api:
+    build:
+      context: "./api"
+      args:
+        - PORT=${API_PORT}
+        - DATABASE_DATASOURCE=${API_DATABASE_DATASOURCE}
+    ports:
+      - "${API_PORT}:${API_PORT}"
+    depends_on:
+      - "nginx"
   nginx:
-    build: "./ui"
+    build: 
+      context: "./ui"
+      args:
+        - TEST=${REACT_APP_TEST}
     ports:
       - "${NGINX_PORT}:80"
+    depends_on:
+      - "db"
   db:
     build: "./db"
     ports:
       - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: speedtest
-      MYSQL_USER: test
-      MYSQL_PASSWORD: test
-      TZ: 'Asia/Tokyo'
     volumes:
       - ./db/mysql_data:/var/lib/mysql

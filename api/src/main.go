@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
@@ -12,10 +11,6 @@ import (
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("error loading .env file. %s", err)
-	}
 	datasource := os.Getenv("DATABASE_DATASOURCE")
 	if datasource == "" {
 		log.Fatal("Cannot get datasource for database.")
@@ -25,6 +20,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Cannot open database")
 	}
+	log.Printf("datasource is %s\n", datasource)
 	defer db.Close()
 
 	placeCtl := controller.PlaceCtl{DB: db}

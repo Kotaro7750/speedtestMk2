@@ -14,6 +14,7 @@ stop:
 	docker-compose down
 
 init-db:
+	docker-compose down --rmi all
 	sudo rm -rf ./db/mysql_data/*
 
 .PHONY:clean

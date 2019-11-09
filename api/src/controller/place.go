@@ -14,7 +14,7 @@ type PlaceCtl struct {
 func (p *PlaceCtl) GetPlaceList(w http.ResponseWriter, r *http.Request) {
 	places, err := model.GetPlaceList(p.DB)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusOK)
 	}
 
 	res, err := json.Marshal(places)

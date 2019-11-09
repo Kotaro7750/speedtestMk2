@@ -1,7 +1,9 @@
 FROM node:12 as builder
+ARG TEST
 COPY ./src /root/src
 WORKDIR /root/src
 RUN npm install
+ENV REACT_APP_TEST ${TEST}
 RUN npm run build
 
 FROM php:7.1-apache
