@@ -18,8 +18,3 @@ CREATE TABLE telemetry (
   FOREIGN KEY telemetry_place_fk(place) REFERENCES place(id)
 );
 
-INSERT INTO place(place)
-VALUES ("一号館");
-
-INSERT INTO place(place)
-VALUES ("二号館");

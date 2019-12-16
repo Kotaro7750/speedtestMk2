@@ -7,6 +7,8 @@
 /ui/src/build/
 
 /db/mysql_data/
+/db/place_list.txt
+/db/init_sql/1_place_init.sql
 
 # Created by https://www.gitignore.io/api/macos
 # Edit at https://www.gitignore.io/?templates=macos

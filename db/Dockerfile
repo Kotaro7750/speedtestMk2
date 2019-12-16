@@ -13,7 +13,7 @@ ENV LC_ALL ja_JP.UTF-8
 ENV TZ="Asia/Tokyo"
 
 COPY my.cnf /etc/mysql/conf.d/my.cnf
-COPY init.sql /docker-entrypoint-initdb.d/init.sql
+COPY ./init_sql/ /docker-entrypoint-initdb.d/
 
 EXPOSE 3306
 CMD ["mysqld"]

@@ -12,6 +12,9 @@ mysql:
 debug:build
 	docker run --rm -p 3306:3306 --name $(CONTAINER) $(CONTAINER)
 
+init:
+	python3 ./place_init_sql.py
+
 
 .PHONY:clean
 clean:
