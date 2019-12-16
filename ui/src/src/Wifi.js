@@ -4,6 +4,8 @@ import Fab from '@material-ui/core/Fab';
 import SendIcon from '@material-ui/icons/Send';
 import Button from '@material-ui/core/Button';
 import SpeedTestCard from './SpeedTestCard';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
 
 class Wifi extends Component {
     constructor() {
@@ -113,14 +115,18 @@ class Wifi extends Component {
             <div>
                 <body>
                     <h1>東京大学教養学部学生自治会 UTokyoWiFiスピードテスト</h1>
-                    <Fab color="secondary" variant="extended" aria-label="delete" onClick={() => this.startStop()}>start</Fab>
-                    <select onChange={(event) => this.onSelected(event)}>
+
+                    <Select onChange = {(event) => this.onSelected(event)}>
                       { this.state.place.map( d => <option value={d.id}>{d.place}</option>)}
-                    </select>
+                    </Select>
+
+                    <Button color="secondary" variant="contained" aria-label="delete" onClick={() => this.startStop()}>start</Button>
+
                     <Button variant="contained" color="primary" onClick={() => this.submitData()}>
                         送信
                         <SendIcon />
                     </Button>
+
                     <SpeedTestCard state={this.state} />
                 </body>
             </div>
