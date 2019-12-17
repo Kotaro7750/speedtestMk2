@@ -7,8 +7,9 @@
 /ui/src/build/
 
 /db/mysql_data/
-/db/place_list.txt
+/db/*.txt
 /db/init_sql/1_place_init.sql
+/db/init_sql/2_telemetry_init_DEBUG.sql
 
 # Created by https://www.gitignore.io/api/macos
 # Edit at https://www.gitignore.io/?templates=macos

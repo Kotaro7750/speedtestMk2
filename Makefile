@@ -16,7 +16,14 @@ stop:
 init-db:
 	docker-compose down --rmi all
 	sudo rm -rf ./db/mysql_data/*
+	sudo rm -rf ./db/init_sql/1_place_init.sql
+	sudo rm -rf ./db/init_sql/2_telemetry_init_DEBUG.sql
 	python3 db/place_init_sql.py
+
+init-db-debug:
+	docker-compose down --rmi all
+	sudo rm -rf ./db/mysql_data/*
+	python3 db/place_init_sql.py DEBUG
 
 .PHONY:clean
 clean:

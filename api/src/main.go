@@ -81,8 +81,13 @@ func main() {
 	log.Printf("datasource is %s\n", datasource)
 	defer db.Close()
 
+	if err := db.Ping(); err != nil {
+		log.Fatal(err.Error())
+	}
+
 	placeCtl := controller.PlaceCtl{DB: db}
 	telemetryCtl := controller.TelemetryCtl{DB: db}
+	csvCtl := controller.CsvCtl{DB: db}
 
 	router := gin.Default()
 
@@ -97,6 +102,7 @@ func main() {
 
 	router.GET("/place", placeCtl.GetPlaceList)
 	router.POST("/telemetry", telemetryCtl.Add)
+	router.GET("/csv/all", csvCtl.All)
 
 	Port := os.Getenv("PORT")
 	router.Run(":" + Port)
