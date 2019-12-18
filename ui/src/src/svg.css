@@ -1,0 +1,10 @@
+rect {
+  fill: #5fd35f;
+  stroke: #165016;
+  stroke-width: 1;
+  transition-duration: 200ms;
+  cursor: pointer;
+}
+rect:hover {
+  fill: #2ca02c;
+}

@@ -37,13 +37,7 @@
 		margin-top:2em;
 		margin-bottom:12em;
 	}
-	div.testArea{
-		display:inline-block;
-		width:14em;
-		height:9em;
-		position:relative;
-		box-sizing:border-box;
-	}
+
 	div.testName{
 		position:absolute;
 		top:0.1em; left:0;
@@ -76,7 +70,4 @@
 		bottom:2em; left:0;
 		width:100%;
 		z-index:9;
-	}
-	div.testGroup{
-		display:inline-block;
 	}

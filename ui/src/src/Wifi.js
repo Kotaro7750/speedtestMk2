@@ -9,10 +9,11 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import styles from './Wifi.css'
+import svg_styles from './svg.css'
 
 class Wifi extends Component {
   constructor() {
-    super(self);
+    super();
     this.state = {
       dl: "",
       ul: "",
@@ -22,12 +23,15 @@ class Wifi extends Component {
       worker: null,
       place: [],
       selected_place: 0,
+      is_running: false,
+      is_complete: false,
     };
     this.worker = null;
   }
 
   componentWillMount() {
     let url = process.env.REACT_APP_URL;
+
     fetch(url + "/place", {
       method: 'GET',
     }).then((res) => {
@@ -35,8 +39,9 @@ class Wifi extends Component {
     }).then((json) => {
       this.setState({ place: JSON.parse(json.result) });
       this.setState({ selected_place: this.state.place[0].id })
+
     }).catch((error) => {
-      console.log("error");
+      console.log(error);
     });
   }
 
@@ -53,23 +58,23 @@ class Wifi extends Component {
       this.worker.addEventListener("message", function(e) {
         console.log("test is completed!")
       });
+      this.setState({ is_running: false })
+      this.setState({ is_complete: false })
       this.worker = null;
-      //I("startStopBtn").className = "";
-      //initUI();
     } else {
       //test is not running, begin
       this.worker = new Worker("./speedtest.worker.js");
       let wifi = { telemetry_level: "basic", time_dl: 5, time_ul: 5 };
-      //w.postMessage('start '+JSON.stringify(wifi)); //Add optional parameters as a JSON object to this command
       this.worker.postMessage('start ' + JSON.stringify(wifi)); //Add optional parameters as a JSON object to this command
-      //I("startStopBtn").className = "running";
+      this.setState({ is_running: true })
+      this.setState({ is_complete: false })
       this.worker.onmessage = function(e) {
         let data = e.data.split(';');
-        //console.log(data);
         let status = Number(data[0]);
         if (status >= 4) {
           //test completed
-          //I("startStopBtn").className = "";
+          this.setState({ is_running: false })
+          this.setState({ is_complete: true })
           this.worker = null;
         }
         this.setState({ ip: data[4] });
@@ -88,8 +93,6 @@ class Wifi extends Component {
   }
 
   submitData() {
-    console.log(process.env);
-    console.log(process.env.REACT_APP_TEST);
     let url = process.env.REACT_APP_URL;
 
     let data = JSON.stringify({
@@ -116,25 +119,43 @@ class Wifi extends Component {
   render() {
     return (
       <div>
-        <body>
-          <h1>東京大学教養学部学生自治会 UTokyoWiFiスピードテスト</h1>
+        <FormControl className={styles.formControl}>
+          <Select onChange={(event) => this.onSelected(event)} class={styles.formControl}>
+            {this.state.place.map(d => <option value={d.id}>{d.place}</option>)}
+          </Select>
+        </FormControl>
 
-          <FormControl className={styles.formControl}>
-            <InputLabel id="demo-simple-select-label">計測場所</InputLabel>
-            <Select onChange={(event) => this.onSelected(event)} autowidth class={styles.formControl}>
-              {this.state.place.map(d => <option value={d.id}>{d.place}</option>)}
-            </Select>
-          </FormControl>
+        <Button color={this.state.is_running ? "secondary" : "primary"} variant="contained" onClick={() => this.startStop()}>
+          {this.state.is_running ? "abort" : "start"}
+        </Button>
 
-          <Button color="secondary" variant="contained" aria-label="delete" onClick={() => this.startStop()}>start</Button>
-
+        {this.state.is_complete &&
           <Button variant="contained" color="primary" onClick={() => this.submitData()}>
-            送信
-                        <SendIcon />
+            送信<SendIcon />
           </Button>
+        }
 
-          <SpeedTestCard state={this.state} />
-        </body>
+        <SpeedTestCard state={this.state} />
+        <svg width='240' height='500' className={svg_styles.rect}>
+          <rect
+            y="62.654762"
+            x="22.678572"
+            height="99.029755"
+            width="63.5"
+            id="rect26" />
+          <rect
+            y="202.50595"
+            x="78.619049"
+            height="88.446426"
+            width="77.10714"
+            id="rect28" />
+          <rect
+            y="28.636904"
+            x="133.04762"
+            height="119.44047"
+            width="59.720234"
+            id="rect30" />
+        </svg>
       </div>
     );
   }

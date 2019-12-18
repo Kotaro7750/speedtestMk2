@@ -12,4 +12,5 @@ FROM php:7.1-apache
 
 COPY --from=builder /root/src/build /var/www/html
 COPY ./src/telemetry/ /var/www/html/
+COPY ./src/asset/ /var/www/html/
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
